@@ -1,34 +1,25 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import {TabbarData} from "../untils/TabBar"
-import {otherData} from "../untils/otherRouter"
+import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
 
 const routes = [
+
   {
-    path:"/",
-    redirect: "/home"
+    path: "/index",
+    name: "index",
+    component: () => import("../views/Pages/IndexPages.vue"),
+    meta: {
+      title: "首页"
+    }
+  },
+
+  {
+    path: "/",
+    redirect:"/index"
   },
 ]
 
-TabbarData.forEach(e => {
-  routes.push({
-    path: e.path,
-    name: e.name,
-    component: () => import("../views"+e.component)
-  })
-});
-
-otherData.forEach(e => {
-  routes.push({
-    path: e.path,
-    name: e.name,
-    component: () => import("../views"+e.component)
-  })
-})
-
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

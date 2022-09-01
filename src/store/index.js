@@ -1,14 +1,13 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
+
+import PageModules from "./modules/PageModules.js";
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
   modules: {
-  }
-})
+    PageModules,
+  },
+});

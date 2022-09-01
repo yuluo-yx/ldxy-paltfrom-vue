@@ -1,5 +1,5 @@
 let baseURL = "";
 
-baseURL = `http://8.130.22.141:9996`;
+baseURL = `http://127.0.0.1:8080`;
 
 export default baseURL;

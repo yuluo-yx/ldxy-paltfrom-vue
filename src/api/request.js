@@ -1,6 +1,6 @@
 import baseURL from './baseUrl.js'
 import axios from 'axios'
-import { Toast } from 'vant';
+import { ElMessage } from 'element-plus'
 
 const service = axios.create({
     baseURL, //api的URL: '/api'
@@ -10,15 +10,18 @@ const service = axios.create({
 
 //Request请求拦截器
 service.interceptors.request.use(config => {
-    //判断token是否存在
-    if (localStorage.getItem('token')) {
-        // 在请求头中添加token
-        config.headers = {
-            'Content-Type': 'application/json',
-            'config.headers.token': localStorage.getItem('token')
-        }
 
-    }
+    // 在发送请求之前做点什么
+
+    //判断token是否存在
+    // if (localStorage.getItem('token')) {
+    //     // 在请求头中添加token
+    //     config.headers = {
+    //         'Content-Type': 'application/json',
+    //         'config.headers.token': localStorage.getItem('token')
+    //     }
+
+    // }
     return config;
 }, err => {
     return Promise.reject(err.response);
@@ -26,16 +29,19 @@ service.interceptors.request.use(config => {
 
 //Response响应拦截器
 service.interceptors.response.use(response => {
+
+    // 在得到响应之后做点什么
+
     return response.data
 }, err => {
     if (err && err.response) {
         switch (err.response.status) {
             case 400:
                 err.message = '请求出错'
-                Toast.fail(err.message)
+                ElMessage.error(err.message)
                 break;
             case 401:
-                Toast.fail({
+                ElMessage.error({
                     message: '授权失败，请重新登登录'
                 })
                 store.commit('LOGING_OUT') //传值给vuex的mutation改变state
@@ -45,15 +51,15 @@ service.interceptors.response.use(response => {
                 break;
             case 403:
                 err.message = '拒绝访问'
-                Toast.fail(err.message)
+                ElMessage.error(err.message)
                 break;
             case 404:
                 err.message = '请求错误，未找到该资源'
-                Toast.fail(err.message)
+                ElMessage.error(err.message)
                 break;
             case 500:
                 err.message = '服务器端出错'
-                Toast.fail(err.message)
+                ElMessage.error(err.message)
                 break;
         }
     } else {
@@ -62,7 +68,7 @@ service.interceptors.response.use(response => {
         // }
         // console.log(err)
         err.message = '连接服务器失败'
-        Toast.fail(err.message)
+        ElMessage.error(err.message)
     }
     // Snackbar.error({
     //     message: err.message

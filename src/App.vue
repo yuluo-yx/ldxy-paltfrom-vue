@@ -1,16 +1,8 @@
 <template>
-  <navbar></navbar>
-  <router-view/>
-  <tabbar/>
+  <!-- 路由入口 -->
+  <router-view />
 </template>
-<script setup>
 
-import tabbar from "./components/TabBar/Tabbar.vue"
-</script>
+<style lang="scss">
 
-<style lang="less">
-html,body{
-  margin: 0;
-  padding: 0;
-}
 </style>
